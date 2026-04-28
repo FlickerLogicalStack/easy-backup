@@ -1,0 +1,19 @@
+{
+  "name": "easy-backup",
+  "version": "2.0.5",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "server": "bun ./server/server.ts configs/server.gitignore.json",
+    "client": "bun ./client/client.ts configs/client.gitignore.json"
+  },
+  "dependencies": {
+    "@zip.js/zip.js": "^2.8.26"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.13"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,1 @@
+bun pm version patch --no-git-tag-version;

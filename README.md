@@ -1,0 +1,1 @@
+bash <(curl -s https://raw.githubusercontent.com/FlickerLogicalStack/easy-backup/refs/heads/master/download.sh)

@@ -1,10 +1,10 @@
 {
   "name": "easy-backup",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "type": "module",
   "private": true,
   "scripts": {
-    "server": "bun ./server/server.ts configs/server.gitignore.json",
+    "server": "bun ./server/server.ts -c configs/server.gitignore.json",
     "client": "bun ./client/client.ts configs/client.gitignore.json"
   },
   "dependencies": {

@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "server": "bun ./server/server.ts -c configs/server.gitignore.json",
-    "client": "bun ./client/client.ts configs/client.gitignore.json"
+    "client": "bun ./client/client.ts -c configs/client.gitignore.json"
   },
   "dependencies": {
     "@zip.js/zip.js": "^2.8.26"

@@ -1,5 +1,6 @@
 import { create_hub } from './client.hub';
 import { log } from '../shared/utils/log';
+import { client_cli } from './client.cli';
 
 export class App {
   public readonly hub = create_hub();
@@ -36,5 +37,11 @@ export class App {
 }
 
 const app = new App();
+
+const cli = app.hub.get('CLI');
+
+const { commands, args } = cli.extract_to(process.argv, cli.commands, cli.args);
+
+client_cli(commands, args);
 
 app.init();

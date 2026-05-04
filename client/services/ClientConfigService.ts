@@ -1,11 +1,12 @@
 import { JSONC } from 'bun';
 import { ServicesHub } from '../../shared/ServicesHub';
 import { try_ } from '../../shared/utils/try_';
+import type { CLIService } from '../../shared/services/CLIService';
 
 export class ClientConfigService extends ServicesHub.Service<'ClientConfig'> {
   private _config: ClientConfigService.Config.Root | null = null;
 
-  constructor() {
+  constructor(private readonly _cli: CLIService) {
     super('ClientConfig');
   }
 
@@ -22,15 +23,18 @@ export class ClientConfigService extends ServicesHub.Service<'ClientConfig'> {
   };
 
   override start = async () => {
-    const cmd_line_path = process.argv[2];
+    const cmd_line_path = this._cli.args.get('-c') || this._cli.args.get('--config') || process.argv[2];
 
-    if (!cmd_line_path) {
-      this.__log('No config path in cli');
-      return;
+    if (!cmd_line_path || typeof cmd_line_path !== 'string') {
+      throw Error('Path to config not provided or wrong format');
     }
 
     const config =
       await this._try_parse_config<typeof import('../../configs/client.gitignore.json')>(cmd_line_path);
+
+    if (!config) {
+      throw Error(`Can't read config file: "${cmd_line_path}"`);
+    }
 
     this._config = config;
 

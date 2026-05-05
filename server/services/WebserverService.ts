@@ -95,13 +95,15 @@ export class WebserverService extends ServicesHub.Service<'Webserver'> {
       return WebserverService.error(EC.BAD_NAME, 400);
     }
 
-    const destination_path = path.join(this.config.server.root_folder, file_client, file_name);
+    const client_config = this.config.server.clients?.[file_client];
+    const client_folder = client_config?.folder || file_client;
+    const destination_path = path.join(this.config.server.root_folder, client_folder, file_name);
 
     const body_bytes = await req.bytes();
 
-    await Bun.write(destination_path, body_bytes);
+    await Bun.write(destination_path, body_bytes, { createPath: true });
 
-    this.__log({ client: file_client, name: file_name });
+    this.__log({ client: file_client, name: file_name, path: destination_path });
 
     return WebserverService.ok();
   };

@@ -79,7 +79,12 @@ Create a JSON configuration file for the server:
   "server": {
     "port": 8091,
     "root_folder": "/path/to/backup/storage",
-    "key": "your-secret-api-key"
+    "key": "your-secret-api-key",
+    "clients": {
+      "client-name": {
+        "folder": "custom-folder-name"
+      }
+    }
   }
 }
 ```
@@ -87,8 +92,10 @@ Create a JSON configuration file for the server:
 **Parameters:**
 - `name`: Server identifier
 - `server.port`: Port to listen on
-- `server.root_folder`: Directory where backups will be stored
+- `server.root_folder`: Base directory where backups will be stored
 - `server.key`: API key for authenticating clients (passed via `X-Key` header)
+- `server.clients` (optional): Per-client configuration
+  - `folder` (optional): Custom folder name for this client (defaults to client name from the request)
 
 ### Client Configuration
 

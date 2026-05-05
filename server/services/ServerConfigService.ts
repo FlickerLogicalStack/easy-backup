@@ -50,6 +50,7 @@ export namespace ServerConfigService {
       port: number;
       key: string;
       root_folder: string;
+      clients?: Record<string, { folder?: string }>;
     };
 
     export type Root = {

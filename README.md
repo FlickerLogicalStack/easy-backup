@@ -16,10 +16,10 @@ A lightweight, automated backup solution with client-server architecture built o
 
 ```
 ┌─────────────────┐         ┌─────────────────┐
-│   Backup Client │───────▶│   Backup Server │
+│   Backup Client │────────▶│   Backup Server │
 │                 │         │                 │
 │  • Scan files   │         │  • Receive      │
-│  • Compress     │         │  • Validate key  │
+│  • Compress     │         │  • Validate key │
 │  • Schedule     │         │  • Store        │
 └─────────────────┘         └─────────────────┘
          │                           │
@@ -33,7 +33,7 @@ A lightweight, automated backup solution with client-server architecture built o
 Download and install the latest release:
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/FlickerLogicalStack/easy-backup/refs/heads/master/download.sh)
+bash <(curl -s https://raw.githubusercontent.com/FlickerLogicalStack/easy-backup/refs/heads/master/tools/download.sh)
 ```
 
 This will automatically detect your platform and download the appropriate binaries.
@@ -49,13 +49,13 @@ This will automatically detect your platform and download the appropriate binari
 **Start the Server:**
 
 ```bash
-bun ./server/server.ts -c configs/server.gitignore.json
+bun ./server/server.ts -c server.json
 ```
 
 **Start the Client:**
 
 ```bash
-bun ./client/client.ts configs/client.gitignore.json
+bun ./client/client.ts -c client.json
 ```
 
 ### Using Compiled Binaries
@@ -63,8 +63,8 @@ bun ./client/client.ts configs/client.gitignore.json
 After downloading or building, use the compiled binaries:
 
 ```bash
-./easy-backup-server-darwin-arm64 --config server-config.json
-./easy-backup-client-darwin-arm64 client-config.json
+./easy-backup-server-darwin-arm64 -c server.json
+./easy-backup-client-darwin-arm64 -c client.json
 ```
 
 ## Configuration
@@ -146,14 +146,6 @@ Create a JSON configuration file for the client:
   - `exclude` (optional): Glob patterns for files to exclude
   - `on_start` (optional): Run backup immediately on client start
 
-## Building from Source
-
-### Build for Specific Platforms
-
-```bash
-./build.sh linux-x64-modern darwin-arm64
-```
-
 ### Available Targets
 
 **Linux:**
@@ -167,22 +159,6 @@ Create a JSON configuration file for the client:
 **macOS:**
 - `darwin-x64`, `darwin-x64-baseline`, `darwin-x64-modern`
 - `darwin-arm64`
-
-### Create Release
-
-```bash
-./release.sh
-```
-
-This creates a GitHub release with compiled binaries for major platforms.
-
-### Version Management
-
-Bump the patch version:
-
-```bash
-./patch.sh
-```
 
 ## How It Works
 
